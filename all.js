@@ -54,19 +54,16 @@ function render(arr) {
 list.addEventListener("click", function (e) {
   let num = e.target.getAttribute("data-num");
   let id = parseInt(e.target.closest("li").dataset.id);
+  let index = data.findIndex((item) => item.id === id);
   if (e.target.getAttribute("class") == "delete") {
     e.preventDefault();
-    data.splice(num, 1);
-  } else if (e.target.getAttribute("type") === "checkbox") {
-    data.forEach((item, index) => {
-      if (item.id == id) {
-        if (data[index].checked === "") {
-          data[index].checked = "checked";
-        } else {
-          data[index].checked = "";
-        }
-      }
-    });
+    data.splice(index, 1);
+  } else if (e.target.nodeName == "INPUT") {
+    if (data[index].checked == "checked") {
+      data[index].checked = "";
+    } else {
+      data[index].checked = "checked";
+    }
   }
   updateTab();
 });
